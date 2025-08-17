@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // ✅ Import navigation hook
 
 const Register = () => {
+  const navigate = useNavigate();  // ✅ Initialize navigation
+
   const handleRegister = async (event) => {
     event.preventDefault();
 
@@ -19,7 +22,6 @@ const Register = () => {
     }
 
     try {
-      // ✅ Use Vite env variable correctly
       const API_URL = import.meta.env.VITE_API_URL;
 
       const response = await axios.post(`${API_URL}/register`, {
@@ -32,6 +34,9 @@ const Register = () => {
       });
 
       alert(response.data.message);
+
+      // ✅ Navigate to login page after successful register
+      navigate('/login');
     } catch (error) {
       alert(error.response?.data?.message || 'Error registering');
     }
