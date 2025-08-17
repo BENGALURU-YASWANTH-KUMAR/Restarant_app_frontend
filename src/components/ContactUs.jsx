@@ -22,7 +22,7 @@ const ContactUs = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/contact', formData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/contact`, formData);
       setFormStatus(response.data.message);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
