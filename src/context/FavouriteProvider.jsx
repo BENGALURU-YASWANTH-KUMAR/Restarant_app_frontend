@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 // Create the context
 export const FavouriteContext = createContext();
 
-const FavouriteProvider = ({ children }) => {
+export const FavouriteProvider = ({ children }) => {   // 👈 use named export
   const [favourites, setFavourites] = useState([]);
 
   // Load favourites from localStorage when the component mounts
@@ -32,10 +32,10 @@ const FavouriteProvider = ({ children }) => {
   };
 
   return (
-    <FavouriteContext.Provider value={{ favourites, addToFavourites, removeFromFavourites }}>
+    <FavouriteContext.Provider
+      value={{ favourites, addToFavourites, removeFromFavourites }}
+    >
       {children}
     </FavouriteContext.Provider>
   );
 };
-
-export default FavouriteProvider;

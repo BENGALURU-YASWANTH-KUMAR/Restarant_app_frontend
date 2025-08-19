@@ -1,46 +1,41 @@
-import React from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // ✅ Import navigation hook
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import Loader from '../components/Loader'
 
 const Register = () => {
-  const navigate = useNavigate();  // ✅ Initialize navigation
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
 
-  const handleRegister = async (event) => {
-    event.preventDefault();
+  useEffect(() => { const t = setTimeout(() => setLoading(false), 500); return () => clearTimeout(t) }, [])
+  if (loading) return <Loader />
 
-    const fullName = event.target.fullName.value;
-    const username = event.target.username.value;
-    const email = event.target.email.value;
-    const phone = event.target.phone.value;
-    const address = event.target.address.value;
-    const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    const fullName = e.target.fullName.value
+    const username = e.target.username.value
+    const email = e.target.email.value
+    const phone = e.target.phone.value
+    const address = e.target.address.value
+    const password = e.target.password.value
+    const confirmPassword = e.target.confirmPassword.value
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
+      alert('Passwords do not match')
+      return
     }
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL;
-
+      const API_URL = import.meta.env.VITE_API_URL
       const response = await axios.post(`${API_URL}/register`, {
-        fullName,
-        username,
-        email,
-        phone,
-        address,
-        password,
-      });
-
-      alert(response.data.message);
-
-      // ✅ Navigate to login page after successful register
-      navigate('/login');
+        fullName, username, email, phone, address, password
+      })
+      alert(response.data.message || 'Registered successfully')
+      navigate('/login')
     } catch (error) {
-      alert(error.response?.data?.message || 'Error registering');
+      alert(error.response?.data?.message || 'Error registering')
     }
-  };
+  }
 
   return (
     <div
@@ -64,16 +59,12 @@ const Register = () => {
               borderRadius: '15px',
               backgroundColor: '#ffffff',
               border: 'none',
-              boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.15)',
+              boxShadow: '0px 10px 30px rgba(0,0,0,0.15)',
             }}
           >
-            <h3
-              className="text-center mb-4"
-              style={{ color: '#6a11cb', fontWeight: '600' }}
-            >
+            <h3 className="text-center mb-4" style={{ color: '#6a11cb', fontWeight: '600' }}>
               Register
             </h3>
-
             <form onSubmit={handleRegister}>
               {[
                 { id: 'fullName', label: 'Full Name', type: 'text' },
@@ -85,39 +76,13 @@ const Register = () => {
                 { id: 'confirmPassword', label: 'Confirm Password', type: 'password' },
               ].map(({ id, label, type }) => (
                 <div className="mb-3" key={id}>
-                  <label
-                    htmlFor={id}
-                    className="form-label"
-                    style={{ color: '#6a11cb' }}
-                  >
+                  <label htmlFor={id} className="form-label" style={{ color: '#6a11cb' }}>
                     {label}
                   </label>
-                  <input
-                    type={type}
-                    className="form-control"
-                    id={id}
-                    name={id}
-                    required
-                    style={{
-                      borderRadius: '10px',
-                      borderColor: '#6a11cb',
-                      fontFamily: "'Poppins', sans-serif",
-                    }}
-                  />
+                  <input type={type} className="form-control" id={id} name={id} required style={{ borderRadius: '10px' }} />
                 </div>
               ))}
-
-              <button
-                type="submit"
-                className="btn w-100"
-                style={{
-                  borderRadius: '10px',
-                  backgroundColor: '#6a11cb',
-                  color: '#fff',
-                  fontWeight: '600',
-                  fontFamily: "'Poppins', sans-serif",
-                }}
-              >
+              <button type="submit" className="btn w-100" style={{ borderRadius: '10px', backgroundColor: '#6a11cb', color: '#fff', fontWeight: '600' }}>
                 Register
               </button>
             </form>
@@ -125,7 +90,7 @@ const Register = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

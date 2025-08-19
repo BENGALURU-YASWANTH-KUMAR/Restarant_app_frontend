@@ -1,78 +1,48 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// src/components/Navbar.jsx
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = ({ isAuthenticated, handleLogout }) => {
-  
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          SmartBite
-        </Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div className="container">
+        <Link className="navbar-brand fw-bold" to="/">SmartBite</Link>
         <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
+          data-bs-target="#sbNav"
+          aria-controls="sbNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+
+        <div className="collapse navbar-collapse" id="sbNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/favourite">
-                My Favourite
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                Contact Us
-              </Link>
-            </li>
-            {/* Conditional rendering based on authentication status */}
+            <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/about">About</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/favourite">My Favourite</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/contact">Contact Us</NavLink></li>
+
             {isAuthenticated ? (
               <li className="nav-item">
-                <button
-                  className="btn btn-link nav-link"
-                  onClick={handleLogout}
-                  style={{ color: 'red', textDecoration: 'none' }}
-                >
+                <button className="btn btn-link nav-link text-danger" onClick={handleLogout}>
                   Logout
                 </button>
               </li>
             ) : (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
+                <li className="nav-item"><NavLink className="nav-link" to="/login">Login</NavLink></li>
+                <li className="nav-item"><NavLink className="nav-link" to="/register">Register</NavLink></li>
               </>
             )}
           </ul>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
