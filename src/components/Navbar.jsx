@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = ({ isAuthenticated, handleLogout }) => {
   return (
@@ -42,7 +42,7 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
