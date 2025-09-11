@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader'
-import Background from './background'
+
 const foodMenu = {
   Starters: {
     description: 'Enjoy our delicious starters to begin your meal.',
